@@ -1,7 +1,7 @@
 import java.util.Iterator;
 class Baloon{
   PVector loc;
-
+  float sinOff;
   String value; // answer
   float orgY; //original y-værdi
 
@@ -10,13 +10,13 @@ class Baloon{
     loc = new PVector(width,h);
     orgY = h;
     value = number;
-
+    sinOff = (float) random(0,6.3);
   }
   
   void update(){
     if (loc.x > 225){
     loc.x -= 0.6;
-    loc.y = orgY + 5*sin(millis()*0.005); //float
+    loc.y = orgY + 5*sin(millis()*0.005+sinOff); //float
     }
     
   }
