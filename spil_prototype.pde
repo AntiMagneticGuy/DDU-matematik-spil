@@ -120,7 +120,7 @@ while (ballIter.hasNext()){
     lifeTime = millis();
   }
 
-  if (millis() - wave >= 3000){
+  if (millis() - wave >= 4500){
     boxes.add(new Box());
     wave = millis();
   }

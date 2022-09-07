@@ -15,7 +15,7 @@ class Baloon{
   
   void update(){
     if (loc.x > 225){
-    loc.x -= 2;
+    loc.x -= 0.6;
     loc.y = orgY + 5*sin(millis()*0.005); //float
     }
     
