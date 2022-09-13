@@ -13,7 +13,7 @@ int life;
 int lifeTime;
 int wave;
 int streak;
-boolean menu;
+int menu;
 String[] highscore;
 SoundFile musik;
 SoundFile pop;
@@ -37,22 +37,21 @@ void setup() {
   lifeTime=millis();
   wave = millis();
  streak = 0;
- menu = true;
+ menu = 0;
  highscore = loadStrings("highscore.txt");
  
  //musik og lydeffekt
  musik = new SoundFile(this,"war.mp3");
- musik.amp(0.7);
+ musik.amp(0.5);
  musik.play();
  musik.loop();
  pop = new SoundFile(this,"pop.mp3");
- pop.amp(1.2);
 }
 
 void draw() {
   background(255);
   
-  if (!menu){
+  if (menu == 5){
   line(200, 0, 200, height);
   angle = atan2(mouseY-250, (mouseX-55));
   drawCannon();
@@ -156,7 +155,7 @@ while (ballIter.hasNext()){
   
 
   }
-   else if (menu) { //menu
+   else if (menu == 0) { //menu
     background(255);
     rectMode(CENTER);
     textAlign(CENTER);
@@ -196,11 +195,23 @@ while (ballIter.hasNext()){
     textSize(50); //text
     fill(0);
     text("start",-250,10);
-    println(mouseX,mouseY);
-    
+    //println(mouseX,mouseY);
+    text("vælg spørgsmål",250,10);
+    text("vis eksempler",-250,160);
+    text("Få 12 i standpunkt",250,160);
     textAlign(LEFT);
     popMatrix();
   }
+  
+  if (menu == 1){
+    
+    
+  }
+  
+  if (menu != 0 && menu != 5){
+    
+  }
+  
 }
 
 
@@ -215,9 +226,9 @@ void drawCannon() {
 
 void mouseClicked() { // aka kode kluddermor
 
-    if (menu){
+    if (menu == 0){
       if (mouseX >= 50 && mouseX <= 450 && mouseY >= 200 && mouseY <= 300){ //startknappen
-      menu = false;
+      menu = 5;
       wave = millis();
       }
       

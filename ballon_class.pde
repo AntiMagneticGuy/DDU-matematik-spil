@@ -38,7 +38,7 @@ class Baloon{
     translate(loc.x,loc.y);
     fill(0);
     textSize(25);
-    text(value,0,0);
+    text(value,0,7);
     textAlign(LEFT);
     popMatrix();
  }
