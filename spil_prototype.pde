@@ -13,6 +13,7 @@ int lifeTime;
 int wave;
 int streak;
 boolean menu;
+String[] highscore;
 
 void setup() {
   size(1000, 500);
@@ -28,15 +29,13 @@ void setup() {
     bs.made = true;
   }
   life = 100;
-  //qs = new Box();
-  //qs.maker();
-  //b = new Ball();
   last = millis();
   angle = 0.0;
   lifeTime=millis();
   wave = millis();
  streak = 0;
  menu = true;
+ highscore = loadStrings("highscore.txt");
 }
 
 void draw() {
@@ -84,7 +83,7 @@ while (ballIter.hasNext()){
   if (b.loc.x > width){
     ballIter.remove();
   }
-  if (front.hit(b.loc.x,b.loc.y)){
+  else if (front.hit(b.loc.x,b.loc.y)){
     if (front.guessedCorrect == false){
      life -= 10; 
     }
@@ -95,10 +94,11 @@ while (ballIter.hasNext()){
     
     if (boxes.size() == 0){
      boxes.add(new Box());
+     
        wave = millis();
     }
     ballIter.remove();
-  }
+  } 
  
   
   }
@@ -110,12 +110,21 @@ while (ballIter.hasNext()){
   imageMode(CORNER);
   text("streak: "+streak,10,70);
 
-  if (life <= 0) {
+  if (life <= 0) { //død
     background(255);
     textSize(150);
     text("GAME OVER", 120, height/2+20);
     textSize(30);
-    text("streak: "+streak,130,height/2+70);
+    text("Score: "+streak,130,height/2+70);
+    if (streak > int(highscore[0])){
+      text("Tidligere bedste score: "+highscore[0],130,height/2+140);
+      String[] high = new String[1];
+      high[0] = str(streak);
+      saveStrings("highscore.txt",high);
+    }
+    else{
+      text("Bedste score: "+int(highscore[0]),130,height/2+140);
+    }
     noLoop();
   }
 
