@@ -12,6 +12,7 @@ int life;
 int lifeTime;
 int wave;
 int streak;
+boolean menu;
 
 void setup() {
   size(1000, 500);
@@ -35,10 +36,13 @@ void setup() {
   lifeTime=millis();
   wave = millis();
  streak = 0;
+ menu = true;
 }
 
 void draw() {
   background(255);
+  
+  if (!menu){
   line(200, 0, 200, height);
   angle = atan2(mouseY-250, (mouseX-55));
   drawCannon();
@@ -95,7 +99,7 @@ while (ballIter.hasNext()){
     }
     ballIter.remove();
   }
-  
+ 
   
   }
   imageMode(CENTER);
@@ -126,7 +130,52 @@ while (ballIter.hasNext()){
   }
   
 
-  
+  }
+   else if (menu) { //menu
+    background(255);
+    rectMode(CENTER);
+    textAlign(CENTER);
+    
+    pushMatrix();
+    translate(width/2,height/2);
+    
+    textSize(100); //title
+    fill(150,20,20);
+    text("Bloons TD7 (c)",0,-140);
+    
+    fill(200); //rectangels
+    rect(-250,0,400,100);
+    rect(-250,150,400,100);
+    rect(250,0,400,100);
+    rect(250,150,400,100);
+    
+    
+    fill(200,70,70); //rød
+    
+    if (mouseX >= 50 && mouseX <= 450){ //rør musen en af knapperne?
+      if (mouseY >= 200 && mouseY <= 300){
+      rect(-250,0,400,100);
+      }
+      else if (mouseY >= 350 && mouseY <= 450){
+        rect(-250,150,400,100);
+      }
+    }
+    else if (mouseX >= 550 && mouseX <= 950){
+      if (mouseY >= 200 && mouseY <= 300){
+      rect(250,0,400,100);
+      }
+      else if (mouseY >= 350 && mouseY <= 450){
+        rect(250,150,400,100);
+      } 
+    }
+    textSize(50); //text
+    fill(0);
+    text("start",-250,10);
+    println(mouseX,mouseY);
+    
+    textAlign(LEFT);
+    popMatrix();
+  }
 }
 
 
@@ -140,7 +189,16 @@ void drawCannon() {
 }
 
 void mouseClicked() { // aka kode kluddermor
-  //if (millis() - last > 50) {
+
+    if (menu){
+      if (mouseX >= 50 && mouseX <= 450 && mouseY >= 200 && mouseY <= 300){ //startknappen
+      menu = false;
+      wave = millis();
+      }
+      
+      
+    }
+    else {
     balls.add(new Ball());
     Ball b = balls.get(balls.size()-1);
     PVector direction = new PVector(mouseX-55, (mouseY-height/2));
@@ -152,6 +210,7 @@ void mouseClicked() { // aka kode kluddermor
 
 
     b.loc.x = 56;
-    //last = millis();
-  //}
+    }
+
+
 }

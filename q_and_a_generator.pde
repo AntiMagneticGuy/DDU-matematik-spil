@@ -9,8 +9,21 @@ class QA
     questionList.add("19");
     questionList.add("20");
     questionList.add("21");
-    questionList.add("21"); //skal rettes inden aflevering...
+    questionList.add("19");
     
+    questionList.add("16-9");
+    questionList.add("7");
+    questionList.add("6");
+    questionList.add("5");
+    questionList.add("7");
+    
+    questionList.add("19+5");
+    questionList.add("24");
+    questionList.add("23");
+    questionList.add("22");
+    questionList.add("24");
+    
+    /*
     questionList.add("32-9*2");
     questionList.add("14");
     questionList.add("12");
@@ -40,6 +53,7 @@ class QA
     questionList.add("-39");
     questionList.add("-38");
     questionList.add("-37");
+    */
   }
   
   
