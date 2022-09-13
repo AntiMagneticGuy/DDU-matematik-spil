@@ -34,10 +34,12 @@ class Baloon{
   
  void displayText(){
     pushMatrix();
+    textAlign(CENTER);
     translate(loc.x,loc.y);
     fill(0);
     textSize(25);
-    text(value,-10,10);
+    text(value,0,0);
+    textAlign(LEFT);
     popMatrix();
  }
  
