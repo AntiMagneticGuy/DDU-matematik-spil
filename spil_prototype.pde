@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import processing.sound.*; // kræver at librariet 'Sound' er installeret
 
 PImage gun;
 PImage heart;
@@ -14,6 +15,8 @@ int wave;
 int streak;
 boolean menu;
 String[] highscore;
+SoundFile musik;
+SoundFile pop;
 
 void setup() {
   size(1000, 500);
@@ -36,6 +39,14 @@ void setup() {
  streak = 0;
  menu = true;
  highscore = loadStrings("highscore.txt");
+ 
+ //musik og lydeffekt
+ musik = new SoundFile(this,"war.mp3");
+ musik.amp(0.7);
+ musik.play();
+ musik.loop();
+ pop = new SoundFile(this,"pop.mp3");
+ pop.amp(1.2);
 }
 
 void draw() {
@@ -84,6 +95,7 @@ while (ballIter.hasNext()){
     ballIter.remove();
   }
   else if (front.hit(b.loc.x,b.loc.y)){
+       pop.play();
     if (front.guessedCorrect == false){
      life -= 10; 
     }
@@ -98,6 +110,10 @@ while (ballIter.hasNext()){
        wave = millis();
     }
     ballIter.remove();
+    
+    
+   
+    
   } 
  
   
