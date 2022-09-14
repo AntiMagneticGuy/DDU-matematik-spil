@@ -131,7 +131,7 @@ void draw() {
         ballIter.remove();
       }
     }
-    ballIter.remove();
+   // ballIter.remove();
     
     
    
@@ -139,7 +139,7 @@ void draw() {
   } 
  
   
-  }
+  
   imageMode(CENTER);
   textSize(30);
   heart.display();
