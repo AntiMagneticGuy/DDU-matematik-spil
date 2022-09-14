@@ -2,7 +2,7 @@ import java.util.Iterator;
 import processing.sound.*; // kræver at librariet 'Sound' er installeret
 
 PImage gun;
-PImage heart;
+SpriteSheet heart;
 
 ArrayList<Box> boxes = new ArrayList<Box>();
 ArrayList<Ball> balls = new ArrayList<Ball>();
@@ -21,7 +21,19 @@ SoundFile pop;
 void setup() {
   size(1000, 500);
   gun = loadImage("gun.jpg");
-  heart = loadImage("hjerte.png");
+  noSmooth();
+  //Hjerte ting
+  heart = new SpriteSheet();
+  heart.Sprite = loadImage("heart_sheet.png");
+  heart.Yframes = 3;
+  heart.Xframes = 6;
+  heart.MaxFrames = 18;
+  heart.FPS = 12;
+  heart.IsPlaying = false;
+  heart.LoopPause = 1.0;
+  heart.Looping = true;
+  heart.Location = new PVector(25,25);
+  heart.playAnimation(12,17);
   //bal = new Baloon();
   boxes.add(new Box());
   balls.add(new Ball());
@@ -119,7 +131,8 @@ while (ballIter.hasNext()){
   }
   imageMode(CENTER);
   textSize(30);
-  image(heart, 25, 25, 25+3*sin(millis()*0.01), 25+3*sin(millis()*0.01));
+  heart.display();
+  //image(heart, 25, 25, 25+3*sin(millis()*0.01), 25+3*sin(millis()*0.01));
   fill(0);
   text(life, 40, 35);
   imageMode(CORNER);
