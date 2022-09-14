@@ -20,6 +20,7 @@ class Knap {
     rect(loc.x,loc.y,sizeX,sizeY);
     textAlign(CENTER);
     fill(0);
+    textSize(50);
     text(txt,loc.x,loc.y);
     
     textAlign(LEFT);
@@ -29,5 +30,15 @@ class Knap {
   void updateColor(int col1,int col2, int col3){
     col = color(col1,col2,col3);
   }
+
+void hover(){
+  if (mouseX >= loc.x-sizeX/2 && mouseX <= loc.x+sizeX/2 && mouseY >= loc.y+sizeY/2 && mouseY <= loc.y+sizeY/2){
+    updateColor(200,70,70);
+}
+else{
+  updateColor(200,200,200);
+}
+
+}
 
 }

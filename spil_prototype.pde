@@ -17,6 +17,7 @@ int menu;
 String[] highscore;
 SoundFile musik;
 SoundFile pop;
+Knap kn;
 
 void setup() {
   size(1000, 500);
@@ -46,6 +47,8 @@ void setup() {
  musik.play();
  musik.loop();
  pop = new SoundFile(this,"pop.mp3");
+ 
+ kn = new Knap(-250,0,400,100);
 }
 
 void draw() {
@@ -168,7 +171,7 @@ while (ballIter.hasNext()){
     text("Bloons TD7 (c)",0,-140);
     
     fill(200); //rectangels
-    rect(-250,0,400,100);
+    //rect(-250,0,400,100);
     rect(-250,150,400,100);
     rect(250,0,400,100);
     rect(250,150,400,100);
@@ -178,7 +181,8 @@ while (ballIter.hasNext()){
     
     if (mouseX >= 50 && mouseX <= 450){ //rør musen en af knapperne?
       if (mouseY >= 200 && mouseY <= 300){
-      rect(-250,0,400,100);
+      //rect(-250,0,400,100);
+      kn.hover();
       }
       else if (mouseY >= 350 && mouseY <= 450){
         rect(-250,150,400,100);
@@ -194,7 +198,8 @@ while (ballIter.hasNext()){
     }
     textSize(50); //text
     fill(0);
-    text("start",-250,10);
+    kn.display("start");
+    //text("start",-250,10);
     //println(mouseX,mouseY);
     text("vælg spørgsmål",250,10);
     text("vis eksempler",-250,160);
