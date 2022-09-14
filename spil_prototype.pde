@@ -19,6 +19,7 @@ String[] highscore;
 SoundFile musik;
 SoundFile pop;
 Knap back;
+PImage fork;
 
 void setup() {
   size(1000, 500);
@@ -51,6 +52,8 @@ void setup() {
 
 
   initMenu();
+
+//fork = loadImage(
 
   back = new Knap(70, 30, 100, 25, "tilbage");
 }
@@ -172,12 +175,31 @@ void draw() {
   }
 
   if (menu == 1) {
+    pushMatrix();
+    translate(width/2, height/2);
+    
+    
+    if (knapper.size() >0){
+    for (Knap kn : knapper) {
+      kn.hover();
+      kn.display();
+    }
+    }
+    else
+    {
+      imageMode(CENTER);
+      image(fork,0,0,800,height);
+      
+    }
+    
+    
+    popMatrix();
   }
 
   if (menu != 0 && menu != 5) { // backbutton
-    textSize(20);
+    //println(mouseX,mouseY);
     back.hover();
-    back.display();
+    back.display(20);
   }
 }
 
@@ -203,18 +225,62 @@ void mouseClicked() { // aka kode kluddermor
         hov = kn.txt;
       }
     }
-    if (hov.equals("Start")) { //startknappen //mouseX >= 50 && mouseX <= 450 && mouseY >= 200 && mouseY <= 300
+    if (back.hovering && menu != 0)
+      {
+        hov = back.txt;
+      }
+      println(hov);
+    if (menu == 0) ////////////////////////////////////////////////////////////////////////////////////////7
+   {
+     back.hover();
+     back.hovering = false;
+    if (hov.equals("Start")) { //startknappen 
       menu = 5;
       wave = millis();
-    } else if (hov.equals("tilbage"))
+    }
+    else if (hov.equals("Vis eksempler"))
+    {
+      menu = 1;
+      sletknapper();
+      initMenu();
+      println(knapper.size());
+    }
+   }
+   if (menu == 1) ///////////////////////////////////////////////////////////////////////////////////////
+   {
+     if (hov.equals("tilbage"))
     {
       menu = 0;
       sletknapper();
       initMenu();
-    }
+      
+      //sletknapper();
+   }
+   else if (hov.equals("Plus (+)"))
+    {
+      fork = loadImage("plus.PNG");
+      sletknapper();
+   }
+   else if (hov.equals("Minus (-)"))
+    {
+      fork = loadImage("minus.PNG");
+      sletknapper();
+   }
+   else if (hov.equals("Gange (×)"))
+    {
+      fork = loadImage("gange.PNG");
+      sletknapper();
+   }
+   else if (hov.equals("Dividere (÷)"))
+    {
+      fork = loadImage("div.PNG");
+      sletknapper();
+   }
+   
+   
   }
 
-
+  } //hvis menu != 5
 
 
   if (menu == 5) { // skyde
@@ -240,14 +306,22 @@ void initMenu(){
   knapper.add(new Knap(250, 0, 400, 100, "Vis eksempler"));
   knapper.add(new Knap(250, 150, 400, 100, "Placeholder"));
   }
+  else if (menu == 1)
+  {
+    
+  knapper.add(new Knap(-250, 0, 400, 100, "Plus (+)"));
+  knapper.add(new Knap(-250, 150, 400, 100, "Minus (-)"));
+  knapper.add(new Knap(250, 0, 400, 100, "Gange (×)"));
+  knapper.add(new Knap(250, 150, 400, 100, "Dividere (÷)"));
   
+  }
 }
 
 
 
 void sletknapper(){
  for (int i = knapper.size(); knapper.size() > 0; i--){
- knapper.remove(i);
+ knapper.remove(i-1);
  }
  
  }

@@ -35,7 +35,6 @@ class QA
   }
   tal2 = abs(svar-tal1);
     
-
    } else if (spørgsmål == 3){
    
    //Gange Generator
@@ -69,7 +68,7 @@ class QA
     s[3] = str(svar);
     s[4] = str(svar); //correct answer
     
-    print(spørgsmål);
+    //print(spørgsmål);
     return s;
    
 
