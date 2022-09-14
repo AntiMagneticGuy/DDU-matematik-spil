@@ -155,7 +155,8 @@ void draw() {
     text("GAME OVER", 120, height/2+20);
 
     textSize(30);
-    image(heart, 25, 25, 25+3*sin(millis()*0.01), 25+3*sin(millis()*0.01));
+    //image(heart, 25, 25, 25+3*sin(millis()*0.01), 25+3*sin(millis()*0.01));
+    heart.display();
     fill(0);
     text(life, 40, 35);
     imageMode(CORNER);
