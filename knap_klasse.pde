@@ -5,6 +5,8 @@ class Knap {
   int sizeX;
   int sizeY;
   String txt;
+  boolean on;
+  boolean hovering;
 
   Knap(int x_, int y_,int sx, int sy,String t) {
     loc = new PVector(x_, y_);
@@ -13,6 +15,8 @@ class Knap {
     sizeX = sx;
     sizeY = sy;
     txt = t;
+    on = false;
+    hovering = false;
   }
 
   void display() {
@@ -37,8 +41,10 @@ void hover(){
   //println((width/2+loc.x),(height/2+loc.y));
   if (mouseX >= (width/2+loc.x)-sizeX/2 && mouseX <= (width/2+loc.x)+sizeX/2 && mouseY >= (height/2+loc.y)-sizeY/2 && mouseY <= (height/2+loc.y)+sizeY/2){
     updateColor(200,70,70);
+    hovering = true;
 }
 else{
+  hovering = false;
   updateColor(200,200,200);
 }
 

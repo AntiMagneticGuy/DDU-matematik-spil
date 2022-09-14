@@ -18,7 +18,7 @@ int menu;
 String[] highscore;
 SoundFile musik;
 SoundFile pop;
-//Knap kn;
+Knap back;
 
 void setup() {
   size(1000, 500);
@@ -54,6 +54,8 @@ void setup() {
  knapper.add(new Knap(-250,150,400,100,"Vælg spørgsmål"));
  knapper.add(new Knap(250,0,400,100,"Vis eksempler"));
  knapper.add(new Knap(250,150,400,100,"Placeholder"));
+ 
+ back = new Knap(70,30,100,25,"tilbage");
 }
 
 void draw() {
@@ -189,8 +191,10 @@ while (ballIter.hasNext()){
     
   }
   
-  if (menu != 0 && menu != 5){
-    
+  if (menu != 1 && menu != 5){ // backbutton
+  textSize(20);
+  back.hover();
+   back.display();
   }
   
 }
@@ -208,13 +212,28 @@ void drawCannon() {
 void mouseClicked() { // aka kode kluddermor
 
     if (menu == 0){
-      if (mouseX >= 50 && mouseX <= 450 && mouseY >= 200 && mouseY <= 300){ //startknappen
+      //int xmouse = mouseX-width/2;
+      // int xmouse = mouseY-height/2;
+      String hov;
+      hov = "";
+      for (Knap kn : knapper){
+      if (kn.hovering)
+      {
+        hov = kn.txt;
+      }
+        
+    }
+      if (hov.equals("Start")){ //startknappen //mouseX >= 50 && mouseX <= 450 && mouseY >= 200 && mouseY <= 300
       menu = 5;
       wave = millis();
       }
       
       
     }
+    
+    
+    
+    
     else {
     balls.add(new Ball());
     Ball b = balls.get(balls.size()-1);
