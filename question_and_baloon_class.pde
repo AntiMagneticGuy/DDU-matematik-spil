@@ -64,7 +64,7 @@ class Box {
 
   boolean hit(float x, float y) {
     for (Baloon bs : baloons) {
-      if (abs(x- bs.loc.x) < 20 && abs(y- bs.loc.y) < 20) {
+      if (abs(x- bs.loc.x) < 30 && abs(y- bs.loc.y) < 30) {
         if (bs.value.equals(question[4]))
         {
         println("Correct");
