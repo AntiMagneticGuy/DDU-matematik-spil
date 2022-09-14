@@ -4,6 +4,7 @@ class Baloon{
   float sinOff;
   String value; // answer
   float orgY; //original y-værdi
+  float modifier;
 
   
   Baloon(String number,int h){
@@ -14,11 +15,16 @@ class Baloon{
   }
   
   void update(){
-    if (loc.x > 225){
-    loc.x -= 0.6;
+    if (loc.x >= 225){
+      
+    modifier = streak*0.01;
+    loc.x -= 0.6+modifier;
+     if (loc.x < 225) {
+      loc.x = 225;
+     }
     loc.y = orgY + 5*sin(millis()*0.005+sinOff); //float
     }
-    
+ 
   }
   
   
