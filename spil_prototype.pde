@@ -19,7 +19,6 @@ String[] highscore;
 SoundFile musik;
 SoundFile pop;
 Knap back;
-String[] bill;
 PImage fork;
 
 void setup() {
@@ -54,11 +53,6 @@ void setup() {
 
   initMenu();
 
-  bill = new String[4];
-  bill[0] = "plus.png";
-bill[0] = "minus.png";
-bill[0] = "gange.png";
-bill[0] = "div.png";
 //fork = loadImage(
 
   back = new Knap(70, 30, 100, 25, "tilbage");
@@ -193,7 +187,8 @@ void draw() {
     }
     else
     {
-      image(fork,100,100);
+      imageMode(CENTER);
+      image(fork,0,0,800,height);
       
     }
     
@@ -202,7 +197,7 @@ void draw() {
   }
 
   if (menu != 0 && menu != 5) { // backbutton
-    
+    //println(mouseX,mouseY);
     back.hover();
     back.display(20);
   }
@@ -230,17 +225,18 @@ void mouseClicked() { // aka kode kluddermor
         hov = kn.txt;
       }
     }
-    if (menu == 0)
+    if (back.hovering && menu != 0)
+      {
+        hov = back.txt;
+      }
+      println(hov);
+    if (menu == 0) ////////////////////////////////////////////////////////////////////////////////////////7
    {
-    if (hov.equals("Start")) { //startknappen //mouseX >= 50 && mouseX <= 450 && mouseY >= 200 && mouseY <= 300
+     back.hover();
+     back.hovering = false;
+    if (hov.equals("Start")) { //startknappen 
       menu = 5;
       wave = millis();
-    }
-    else if (hov.equals("tilbage"))
-    {
-      menu = 0;
-      sletknapper();
-      initMenu();
     }
     else if (hov.equals("Vis eksempler"))
     {
@@ -252,16 +248,32 @@ void mouseClicked() { // aka kode kluddermor
    }
    if (menu == 1) ///////////////////////////////////////////////////////////////////////////////////////
    {
-  
      if (hov.equals("tilbage"))
     {
       menu = 0;
-      initMenu();
       sletknapper();
+      initMenu();
+      
+      //sletknapper();
    }
    else if (hov.equals("Plus (+)"))
     {
-      fork = loadImage(bill[0]);
+      fork = loadImage("plus.PNG");
+      sletknapper();
+   }
+   else if (hov.equals("Minus (-)"))
+    {
+      fork = loadImage("minus.PNG");
+      sletknapper();
+   }
+   else if (hov.equals("Gange (×)"))
+    {
+      fork = loadImage("gange.PNG");
+      sletknapper();
+   }
+   else if (hov.equals("Dividere (÷)"))
+    {
+      fork = loadImage("div.PNG");
       sletknapper();
    }
    
@@ -300,7 +312,7 @@ void initMenu(){
   knapper.add(new Knap(-250, 0, 400, 100, "Plus (+)"));
   knapper.add(new Knap(-250, 150, 400, 100, "Minus (-)"));
   knapper.add(new Knap(250, 0, 400, 100, "Gange (×)"));
-  knapper.add(new Knap(250, 150, 400, 100, "dividere (%)"));
+  knapper.add(new Knap(250, 150, 400, 100, "Dividere (÷)"));
   
   }
 }
