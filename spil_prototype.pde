@@ -6,6 +6,7 @@ PImage heart;
 
 ArrayList<Box> boxes = new ArrayList<Box>();
 ArrayList<Ball> balls = new ArrayList<Ball>();
+ArrayList<Knap> knapper = new ArrayList<Knap>();
 Box front;
 int last;
 float angle;
@@ -17,7 +18,7 @@ int menu;
 String[] highscore;
 SoundFile musik;
 SoundFile pop;
-Knap kn;
+//Knap kn;
 
 void setup() {
   size(1000, 500);
@@ -44,11 +45,15 @@ void setup() {
  //musik og lydeffekt
  musik = new SoundFile(this,"war.mp3");
  musik.amp(0.5);
- musik.play();
- musik.loop();
+ //musik.play();
+ //musik.loop();
  pop = new SoundFile(this,"pop.mp3");
  
- kn = new Knap(-250,0,400,100);
+ 
+ knapper.add(new Knap(-250,0,400,100,"Start"));
+ knapper.add(new Knap(-250,150,400,100,"Vælg spørgsmål"));
+ knapper.add(new Knap(250,0,400,100,"Vis eksempler"));
+ knapper.add(new Knap(250,150,400,100,"Placeholder"));
 }
 
 void draw() {
@@ -170,40 +175,11 @@ while (ballIter.hasNext()){
     fill(150,20,20);
     text("Bloons TD7 (c)",0,-140);
     
-    fill(200); //rectangels
-    //rect(-250,0,400,100);
-    rect(-250,150,400,100);
-    rect(250,0,400,100);
-    rect(250,150,400,100);
     
-    
-    fill(200,70,70); //rød
-    
-    if (mouseX >= 50 && mouseX <= 450){ //rør musen en af knapperne?
-      if (mouseY >= 200 && mouseY <= 300){
-      //rect(-250,0,400,100);
+    for (Knap kn : knapper){
       kn.hover();
-      }
-      else if (mouseY >= 350 && mouseY <= 450){
-        rect(-250,150,400,100);
-      }
+      kn.display();
     }
-    else if (mouseX >= 550 && mouseX <= 950){
-      if (mouseY >= 200 && mouseY <= 300){
-      rect(250,0,400,100);
-      }
-      else if (mouseY >= 350 && mouseY <= 450){
-        rect(250,150,400,100);
-      } 
-    }
-    textSize(50); //text
-    fill(0);
-    kn.display("start");
-    //text("start",-250,10);
-    //println(mouseX,mouseY);
-    text("vælg spørgsmål",250,10);
-    text("vis eksempler",-250,160);
-    text("Få 12 i standpunkt",250,160);
     textAlign(LEFT);
     popMatrix();
   }
