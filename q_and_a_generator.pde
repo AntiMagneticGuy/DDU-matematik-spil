@@ -35,7 +35,7 @@ class QA
     s[3] = str(svar);
     s[4] = str(svar); //correct answer
     
-    print(spørgsmål);
+   // print(spørgsmål);
     return s;
    
    } else if (spørgsmål == 2) {
@@ -63,7 +63,7 @@ class QA
     s[3] = str(svar);
     s[4] = str(svar); //correct answer
     
-    print(spørgsmål);
+   // print(spørgsmål);
     return s;
     
  
@@ -90,7 +90,7 @@ class QA
     s[3] = str(svar);
     s[4] = str(svar); //correct answer
     
-    print(spørgsmål);
+    //print(spørgsmål);
     return s;
    
    } else {
@@ -114,7 +114,7 @@ class QA
     s[3] = str(svar);
     s[4] = str(svar); //correct answer
     
-       print(spørgsmål);
+      // print(spørgsmål);
     return s;
    }
    

@@ -33,6 +33,20 @@ class Knap {
     popMatrix();
   }
   
+  void display(int b) {
+    pushMatrix();
+    fill(col);
+    rectMode(CENTER);
+    rect(loc.x,loc.y,sizeX,sizeY);
+    textAlign(CENTER);
+    fill(0);
+    textSize(b);
+    text(txt,loc.x,loc.y+7);
+    
+    textAlign(LEFT);
+    popMatrix();
+  }
+  
   void updateColor(int col1,int col2, int col3){
     col = color(col1,col2,col3);
   }

@@ -19,6 +19,8 @@ String[] highscore;
 SoundFile musik;
 SoundFile pop;
 Knap back;
+String[] bill;
+PImage fork;
 
 void setup() {
   size(1000, 500);
@@ -51,6 +53,13 @@ void setup() {
 
 
   initMenu();
+
+  bill = new String[4];
+  bill[0] = "plus.png";
+bill[0] = "minus.png";
+bill[0] = "gange.png";
+bill[0] = "div.png";
+//fork = loadImage(
 
   back = new Knap(70, 30, 100, 25, "tilbage");
 }
@@ -172,12 +181,30 @@ void draw() {
   }
 
   if (menu == 1) {
+    pushMatrix();
+    translate(width/2, height/2);
+    
+    
+    if (knapper.size() >0){
+    for (Knap kn : knapper) {
+      kn.hover();
+      kn.display();
+    }
+    }
+    else
+    {
+      image(fork,100,100);
+      
+    }
+    
+    
+    popMatrix();
   }
 
   if (menu != 0 && menu != 5) { // backbutton
-    textSize(20);
+    
     back.hover();
-    back.display();
+    back.display(20);
   }
 }
 
@@ -203,18 +230,45 @@ void mouseClicked() { // aka kode kluddermor
         hov = kn.txt;
       }
     }
+    if (menu == 0)
+   {
     if (hov.equals("Start")) { //startknappen //mouseX >= 50 && mouseX <= 450 && mouseY >= 200 && mouseY <= 300
       menu = 5;
       wave = millis();
-    } else if (hov.equals("tilbage"))
+    }
+    else if (hov.equals("tilbage"))
     {
       menu = 0;
       sletknapper();
       initMenu();
     }
+    else if (hov.equals("Vis eksempler"))
+    {
+      menu = 1;
+      sletknapper();
+      initMenu();
+      println(knapper.size());
+    }
+   }
+   if (menu == 1) ///////////////////////////////////////////////////////////////////////////////////////
+   {
+  
+     if (hov.equals("tilbage"))
+    {
+      menu = 0;
+      initMenu();
+      sletknapper();
+   }
+   else if (hov.equals("Plus (+)"))
+    {
+      fork = loadImage(bill[0]);
+      sletknapper();
+   }
+   
+   
   }
 
-
+  } //hvis menu != 5
 
 
   if (menu == 5) { // skyde
@@ -240,14 +294,22 @@ void initMenu(){
   knapper.add(new Knap(250, 0, 400, 100, "Vis eksempler"));
   knapper.add(new Knap(250, 150, 400, 100, "Placeholder"));
   }
+  else if (menu == 1)
+  {
+    
+  knapper.add(new Knap(-250, 0, 400, 100, "Plus (+)"));
+  knapper.add(new Knap(-250, 150, 400, 100, "Minus (-)"));
+  knapper.add(new Knap(250, 0, 400, 100, "Gange (×)"));
+  knapper.add(new Knap(250, 150, 400, 100, "dividere (%)"));
   
+  }
 }
 
 
 
 void sletknapper(){
  for (int i = knapper.size(); knapper.size() > 0; i--){
- knapper.remove(i);
+ knapper.remove(i-1);
  }
  
  }
