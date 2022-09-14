@@ -17,7 +17,7 @@ class Baloon{
   void update(){
     if (loc.x >= 225){
       
-    modifier = streak*0.01;
+    modifier = streak*0.05;
     loc.x -= 0.6+modifier;
      if (loc.x < 225) {
       loc.x = 225;
