@@ -135,10 +135,6 @@ void draw() {
     
     
    
-    
-  } 
- 
-  
   
   imageMode(CENTER);
   textSize(30);
@@ -149,18 +145,6 @@ void draw() {
   imageMode(CORNER);
   text("streak: "+streak,10,70);
 
-  if (life <= 0) { //død
-    background(255);
-    textSize(150);
-    text("GAME OVER", 120, height/2+20);
-
-    textSize(30);
-    //image(heart, 25, 25, 25+3*sin(millis()*0.01), 25+3*sin(millis()*0.01));
-    heart.display();
-    fill(0);
-    text(life, 40, 35);
-    imageMode(CORNER);
-    text("streak: "+streak, 10, 70);
 
     if (life <= 0) { //død
       background(255);
@@ -188,7 +172,10 @@ void draw() {
       boxes.add(new Box());
       wave = millis();
     }
-  } else if (menu == 0) { //menu
+    
+  
+  } 
+  else if (menu == 0) { //menu
     background(255);
     rectMode(CENTER);
     textAlign(CENTER);
