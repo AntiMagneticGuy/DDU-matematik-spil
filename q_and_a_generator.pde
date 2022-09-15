@@ -54,9 +54,12 @@ class QA
     
    //Division Generator  
    type = "÷";
+   
+     
    tal2 = (int) random(2,10);
    svar = (int) random(2,10);
    tal1 = svar*tal2;
+   
         
    }
  
