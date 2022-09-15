@@ -153,7 +153,7 @@ void draw() {
 
     if (life <= 0) { //død
       background(255);
-      textSize(150);
+      textSize(100);
       text("GAME OVER", 120, height/2+20);
       textSize(30);
       text("Score: "+streak, 130, height/2+70);
@@ -173,7 +173,7 @@ void draw() {
       lifeTime = millis();
     }
 
-    if (millis() - wave >= 4500) {
+    if (millis() - wave >= 4500-streak*40) {
       boxes.add(new Box());
       wave = millis();
     }
