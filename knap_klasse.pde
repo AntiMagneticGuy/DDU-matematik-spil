@@ -52,6 +52,7 @@ class Knap {
   }
 
 void hover(){
+  
   if (txt.equals("tilbage") && mouseX >= 20 && mouseX <= 120 && mouseY >= 5 && mouseY <= 45)
   {
     updateColor(200,70,70);
@@ -59,11 +60,18 @@ void hover(){
   }
   else if (mouseX >= (width/2+loc.x)-sizeX/2 && mouseX <= (width/2+loc.x)+sizeX/2 && mouseY >= (height/2+loc.y)-sizeY/2 && mouseY <= (height/2+loc.y)+sizeY/2){
     updateColor(200,70,70);
+    
     hovering = true;
 }
 else{
   hovering = false;
   updateColor(200,200,200);
+  
+}
+if (on == true )
+  {
+    updateColor(70,200,70);
+    
 }
 
 }
