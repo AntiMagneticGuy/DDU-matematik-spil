@@ -20,6 +20,8 @@ SoundFile musik;
 SoundFile pop;
 Knap back;
 PImage fork;
+ArrayList<Integer> regne = new ArrayList<Integer>();
+String hov;
 
 void setup() {
   size(1000, 500);
@@ -40,12 +42,8 @@ void setup() {
   //bal = new Baloon();
   boxes.add(new Box());
   balls.add(new Ball());
-  Iterator<Box> iter = boxes.iterator();
-  while (iter.hasNext()) {
-    Box bs = iter.next();
-    bs.maker();
-    bs.made = true;
-  }
+  
+  
   life = 100;
   last = millis();
   angle = 0.0;
@@ -91,8 +89,9 @@ void draw() {
       Box bs = iter.next();
       bs.mover();
       if (!bs.made) {
-        bs.maker();
+        bs.maker(regne);
       }
+      
     }
     front.display();
 
@@ -125,7 +124,13 @@ void draw() {
 
         if (boxes.size() == 0) {
           boxes.add(new Box());
-
+          println(boxes.size());
+          
+          Box bs = boxes.get(0);
+      if (!bs.made) {
+        bs.maker(regne);
+      }
+          
           wave = millis();
         }
         ballIter.remove();
@@ -196,10 +201,14 @@ void draw() {
     popMatrix();
   }
 
-  if (menu == 1) {
+  else if (menu == 1) {
     pushMatrix();
     translate(width/2, height/2);
     
+     textAlign(CENTER);
+     textSize(60); //title
+    fill(150, 20, 20);
+    text("Vælg en regneart", 0, -140);
     
     if (knapper.size() >0){
     for (Knap kn : knapper) {
@@ -217,6 +226,27 @@ void draw() {
     
     popMatrix();
   }
+  
+  else if (menu == 2) {
+    pushMatrix();
+    translate(width/2, height/2);
+    textAlign(CENTER);
+     textSize(60); //title
+    fill(150, 20, 20);
+    text("Slå til eller fra", 0, -140);
+    
+    if (knapper.size() >0){
+    for (Knap kn : knapper) {
+      kn.hover();
+      kn.display();
+    }
+    }
+    
+    popMatrix();
+  }
+  
+  
+  
 
   if (menu != 0 && menu != 5) { // backbutton
     //println(mouseX,mouseY);
@@ -239,7 +269,7 @@ void mouseClicked() { // aka kode kluddermor
 
   if (menu != 5) {
 
-    String hov;
+    
     hov = "";
     for (Knap kn : knapper) {
       if (kn.hovering)
@@ -256,20 +286,37 @@ void mouseClicked() { // aka kode kluddermor
    {
      back.hover();
      back.hovering = false;
-    if (hov.equals("Start")) { //startknappen 
+    if (hov.equals("Start")) { //startknappen
       menu = 5;
       wave = millis();
+      Iterator<Box> iter = boxes.iterator();
+      while (iter.hasNext()) {
+    Box bs = iter.next();
+    bs.maker(regne);
+    bs.made = true;
+  }
+      
     }
     else if (hov.equals("Vis eksempler"))
     {
       menu = 1;
       sletknapper();
       initMenu();
-      println(knapper.size());
+      //println(knapper.size());
+    }
+    else if (hov.equals("Vælg spørgsmål"))
+    {
+      menu = 2;
+      sletknapper();
+      initMenu();
+      //println(knapper.size());
     }
    }
    if (menu == 1) ///////////////////////////////////////////////////////////////////////////////////////
    {
+    
+    
+      
      if (hov.equals("tilbage"))
     {
       menu = 0;
@@ -300,7 +347,103 @@ void mouseClicked() { // aka kode kluddermor
    }
    
    
-  }
+  } //
+
+if (menu == 2) ///////////////////////////////////////////////////////////////////////////////////////
+   {
+  
+     if (hov.equals("tilbage"))
+    {
+      menu = 0;
+      sletknapper();
+      initMenu();
+      
+      
+   }
+   else if (hov.equals("Plus (+)"))
+    {
+      Knap tmp = knapper.get(0);
+      tmp.on = !tmp.on;
+      if (tmp.on)
+      {
+        regne.add(1);
+      }
+      else
+      {
+        for (int i = regne.size()-1; i > -1; i--)
+        {
+          if (regne.get(i) == 1)
+          {
+            regne.remove(i);
+          }
+        }
+        
+      }
+   }
+   else if (hov.equals("Minus (-)"))
+    {
+      Knap tmp = knapper.get(1);
+      tmp.on = !tmp.on;
+      if (tmp.on)
+      {
+        regne.add(2);
+      }
+      else
+      {
+        for (int i = regne.size()-1; i > -1; i--)
+        {
+          if (regne.get(i) == 2)
+          {
+            regne.remove(i);
+          }
+        }
+        
+      }
+   }
+   
+   else if (hov.equals("Gange (×)"))
+    {
+      Knap tmp = knapper.get(2);
+      tmp.on = !tmp.on;
+      if (tmp.on)
+      {
+        regne.add(3);
+      }
+      else
+      {
+        for (int i = regne.size()-1; i > -1; i--)
+        {
+          if (regne.get(i) == 3)
+          {
+            regne.remove(i);
+          }
+        }
+        
+      }
+   }
+   
+   else if (hov.equals("Dividere (÷)"))
+    {
+      Knap tmp = knapper.get(3);
+      tmp.on = !tmp.on;
+      if (tmp.on)
+      {
+        regne.add(4);
+      }
+      else
+      {
+        for (int i = regne.size()-1; i > -1; i--)
+        {
+          if (regne.get(i) == 4)
+          {
+            regne.remove(i);
+          }
+        }
+        
+      }
+   }
+ println(regne);
+  } //
 
   } //hvis menu != 5
 
@@ -328,14 +471,19 @@ void initMenu(){
   knapper.add(new Knap(250, 0, 400, 100, "Vis eksempler"));
   knapper.add(new Knap(250, 150, 400, 100, "Placeholder"));
   }
-  else if (menu == 1)
+  else if (menu == 1 || menu == 2)
   {
     
   knapper.add(new Knap(-250, 0, 400, 100, "Plus (+)"));
   knapper.add(new Knap(-250, 150, 400, 100, "Minus (-)"));
   knapper.add(new Knap(250, 0, 400, 100, "Gange (×)"));
   knapper.add(new Knap(250, 150, 400, 100, "Dividere (÷)"));
-  
+  for (Integer is : regne)
+  {
+    Knap tmp = knapper.get(is-1);
+    tmp.on = true;
+    tmp.hover();
+  }
   }
 }
 
