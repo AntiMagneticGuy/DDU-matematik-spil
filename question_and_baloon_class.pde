@@ -8,11 +8,12 @@ class Box {
   boolean guessedCorrect;
   
   Box() {
-    question = quest.newQuestion();
+    //question = quest.newQuestion();
     made = false;
   }
 
-  void maker() {
+  void maker(ArrayList<Integer> valgte) {
+    question = quest.newQuestion(valgte);
     boolean diff = false;
     int[] hs = new int[3];
     hs[0] = (int) random(25, height-25);
