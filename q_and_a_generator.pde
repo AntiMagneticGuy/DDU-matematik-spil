@@ -5,9 +5,16 @@ class QA
   QA(){
   }  
   
-  String[] newQuestion(){
-    
-   int spørgsmål = (int) random(1,5);
+  String[] newQuestion(ArrayList<Integer> valgte){
+   
+    if (valgte.size() == 0){
+   valgte.add(1);
+   valgte.add(2);
+   valgte.add(3);
+   valgte.add(4);
+    }
+   int temp = (int) random(0,valgte.size());
+   int spørgsmål = valgte.get(temp);
    int svar;
    int tal1;
    int tal2;
@@ -70,21 +77,6 @@ class QA
     
     //print(spørgsmål);
     return s;
-   
-
-   
-   
-   /*
-    String[] s = new String[5];
-    s[0] = str(tal1) + "-" + str(tal2); // question
-    s[1] = str(svar+t1);
-    s[2] = str(svar+t2);
-    s[3] = str(svar);
-    s[4] = str(svar); //correct answer
-    
-    
-    return s;
-    */
    
   }
   
