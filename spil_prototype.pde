@@ -56,8 +56,8 @@ void setup() {
   //musik og lydeffekt
   musik = new SoundFile(this, "war.mp3");
   musik.amp(0.5);
-  //musik.play();
-  //musik.loop();
+  musik.play();
+  musik.loop();
   pop = new SoundFile(this, "pop.mp3");
 
 
