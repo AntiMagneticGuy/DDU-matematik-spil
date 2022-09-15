@@ -471,7 +471,7 @@ void initMenu(){
   knapper.add(new Knap(250, 0, 400, 100, "Vis eksempler"));
   knapper.add(new Knap(250, 150, 400, 100, "Placeholder"));
   }
-  else if (menu == 1 || menu == 2)
+  else if (menu == 2)
   {
     
   knapper.add(new Knap(-250, 0, 400, 100, "Plus (+)"));
@@ -484,6 +484,14 @@ void initMenu(){
     tmp.on = true;
     tmp.hover();
   }
+  }
+  else if (menu == 1)
+  {
+    
+  knapper.add(new Knap(-250, 0, 400, 100, "Plus (+)"));
+  knapper.add(new Knap(-250, 150, 400, 100, "Minus (-)"));
+  knapper.add(new Knap(250, 0, 400, 100, "Gange (×)"));
+  knapper.add(new Knap(250, 150, 400, 100, "Dividere (÷)"));
   }
 }
 
