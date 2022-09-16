@@ -25,7 +25,7 @@ class SpriteSheet{
   float LoopReachTime;
   boolean WaitingForLoop = false;
   
-  
+  boolean centered = false;
   
   
   float FPS;
@@ -113,6 +113,9 @@ class SpriteSheet{
     int y = (frame / Xframes) * h;    
     scale(SpriteScale);    
     PImage displaySprite = Sprite.get(x,y,w,h);
+    if (centered){
+     imageMode(CENTER); 
+    }
     image(displaySprite,Location.x/1,Location.y/1);
 
   }

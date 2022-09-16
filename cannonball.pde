@@ -8,7 +8,7 @@ class Ball {
   
   
   Ball() {
-  loc = new PVector(55,height/2+10);
+  loc = new PVector(55,height/2 - 2);
   vel = new PVector(0,0);
   acc = new PVector(0,0);
   col = 0;//(color) random(#000000);
