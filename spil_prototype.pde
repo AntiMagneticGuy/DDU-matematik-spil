@@ -308,7 +308,7 @@ void mouseClicked() {
       initMenu();
       //println(knapper.size());
     }
-    else if (hov.equals("Slut spil"))
+    else if (hov.equals("afslut"))
     {
       exit();
     }
@@ -470,7 +470,7 @@ void initMenu(){
   knapper.add(new Knap(-250, 0, 400, 100, "Start"));
   knapper.add(new Knap(-250, 150, 400, 100, "Vælg spørgsmål"));
   knapper.add(new Knap(250, 0, 400, 100, "Vis eksempler"));
-  knapper.add(new Knap(250, 150, 400, 100, "Slut spil"));
+  knapper.add(new Knap(250, 150, 400, 100, "afslut"));
   }
   else if (menu == 2)
   {
