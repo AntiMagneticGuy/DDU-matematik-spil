@@ -27,7 +27,7 @@ PImage baggrund;
 
 void setup() {
   size(1000, 500);
-  gun = loadImage("gun.jpg");
+  gun = loadImage("gun.png");
   noSmooth();
   //Hjerte ting
   heart = new SpriteSheet();
@@ -75,7 +75,7 @@ void draw() {
 
   if (menu == 5) {
     imageMode(CORNERS);
-    tint(255, 200);
+    tint(255, 110);
     image(baggrund,0,0,width,height);
     imageMode(CORNER);
     tint(255,255);
