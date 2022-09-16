@@ -57,8 +57,9 @@ void hover(){
   {
     updateColor(200,70,70);
     hovering = true;
+    
   }
-  else if (mouseX >= (width/2+loc.x)-sizeX/2 && mouseX <= (width/2+loc.x)+sizeX/2 && mouseY >= (height/2+loc.y)-sizeY/2 && mouseY <= (height/2+loc.y)+sizeY/2){
+  else if (txt != "tilbage" && mouseX >= (width/2+loc.x)-sizeX/2 && mouseX <= (width/2+loc.x)+sizeX/2 && mouseY >= (height/2+loc.y)-sizeY/2 && mouseY <= (height/2+loc.y)+sizeY/2){
     updateColor(200,70,70);
     
     hovering = true;
