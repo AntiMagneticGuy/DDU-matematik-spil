@@ -62,7 +62,7 @@ class Baloon{
     
     fill(0);
     text(value, 1, 9);
-     fill(200);
+     fill(142,208,164);
      textSize(25);
     text(value,-1,7);
     textAlign(LEFT);
