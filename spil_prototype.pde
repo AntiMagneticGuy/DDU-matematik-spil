@@ -23,6 +23,7 @@ PImage fork;
 ArrayList<Integer> regne = new ArrayList<Integer>();
 String hov;
 PImage mur;
+PImage baggrund;
 
 void setup() {
   size(1000, 500);
@@ -64,6 +65,7 @@ void setup() {
 
   initMenu();
   mur = loadImage("mur.png");
+  baggrund = loadImage("baggrund.png");
 
   back = new Knap(70, 30, 100, 25, "tilbage");
 }
@@ -72,7 +74,11 @@ void draw() {
   background(255);
 
   if (menu == 5) {
-    line(200, 0, 200, height);
+    imageMode(CORNERS);
+    tint(255, 200);
+    image(baggrund,0,0,width,height);
+    imageMode(CORNER);
+    tint(255,255);
     angle = atan2(mouseY-250, (mouseX-55));
     drawCannon();
     imageMode(CORNERS);
