@@ -148,7 +148,7 @@ void draw() {
   fill(0);
   text(life, 40, 35);
   imageMode(CORNER);
-  text("streak: "+streak,10,70);
+  text("Score: "+streak,10,70);
 
 
     if (life <= 0) { //død
