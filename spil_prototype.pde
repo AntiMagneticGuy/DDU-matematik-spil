@@ -190,7 +190,7 @@ void draw() {
 
     textSize(100); //title
     fill(150, 20, 20);
-    text("Bloons TD7 (c)", 0, -140);
+    text("Mat Besat", 0, -140);
 
 
     for (Knap kn : knapper) {
