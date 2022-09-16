@@ -22,6 +22,7 @@ Knap back;
 PImage fork;
 ArrayList<Integer> regne = new ArrayList<Integer>();
 String hov;
+PImage mur;
 
 void setup() {
   size(1000, 500);
@@ -62,6 +63,7 @@ void setup() {
 
 
   initMenu();
+  mur = loadImage("mur.png");
 
   back = new Knap(70, 30, 100, 25, "tilbage");
 }
@@ -73,7 +75,8 @@ void draw() {
     line(200, 0, 200, height);
     angle = atan2(mouseY-250, (mouseX-55));
     drawCannon();
-
+    imageMode(CORNERS);
+    image(mur, 160, 0, 205, height);
 
 
     front = boxes.get(0);
