@@ -1,8 +1,9 @@
 import java.util.Iterator;
 import processing.sound.*; // kræver at librariet 'Sound' er installeret
 
-PImage gun;
+SpriteSheet gun;
 SpriteSheet heart;
+PImage platform;
 
 ArrayList<Box> boxes = new ArrayList<Box>();
 ArrayList<Ball> balls = new ArrayList<Ball>();
@@ -27,8 +28,22 @@ PImage baggrund;
 
 void setup() {
   size(1000, 500);
-  gun = loadImage("gun.png");
+
   noSmooth();
+  platform = loadImage("platform.png");
+  
+  //Gun Ting
+  gun = new SpriteSheet();
+  gun.Sprite = loadImage("gun.png");
+  gun.Yframes = 1;
+  gun.Xframes = 5;
+  gun.MaxFrames = 5;
+  gun.FPS = 12;
+  gun.IsPlaying = false;
+  gun.Looping = false;
+  gun.centered = true;
+  gun.AnimFrameCap = 5;
+  
   //Hjerte ting
   heart = new SpriteSheet();
   heart.Sprite = loadImage("heart_sheet.png");
@@ -81,6 +96,7 @@ void draw() {
     tint(255,255);
     angle = atan2(mouseY-250, (mouseX-55));
     drawCannon();
+    image(platform,70,height/2 - 36);
     imageMode(CORNERS);
     image(mur, 160, 0, 205, height);
 
@@ -265,9 +281,10 @@ void draw() {
 void drawCannon() {
 
   pushMatrix();
-  translate(55, height/2);
+  translate(70, height/2);
   rotate(angle);
-  image(gun, 0, 0, -50, 50);
+  gun.display();
+  //image(gun, 0, 0, -50, 50);
   popMatrix();
 }
 
@@ -462,7 +479,7 @@ if (menu == 2) /////////////////////////////////////////////////////////////////
     balls.add(new Ball());
     Ball b = balls.get(balls.size()-1);
     PVector direction = new PVector(mouseX-55, (mouseY-height/2));
-
+    gun.playAnimation(0,4);
     direction.mult(0.05);
 
     b.addForce(direction);
