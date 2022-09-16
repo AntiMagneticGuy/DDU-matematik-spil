@@ -39,7 +39,7 @@ void setup() {
   heart.Looping = true;
   heart.Location = new PVector(25,25);
   heart.playAnimation(12,17);
-  //bal = new Baloon();
+//boks aka 3x ballon + spørgsmål
   boxes.add(new Box());
   balls.add(new Ball());
   
@@ -63,8 +63,6 @@ void setup() {
 
   initMenu();
 
-//fork = loadImage(
-
   back = new Knap(70, 30, 100, 25, "tilbage");
 }
 
@@ -85,7 +83,7 @@ void draw() {
     text(front.question[0], 10, 470);
     Iterator<Box> iter = boxes.iterator();
     while (iter.hasNext()) {
-      /* for (int i = boxes.size(); i < boxes.size();i--){*/
+      
       Box bs = iter.next();
       bs.mover();
       if (!bs.made) {
@@ -95,7 +93,7 @@ void draw() {
     }
     front.display();
 
-    //println(boxes.size());
+  
 
     Iterator<Ball> ballIter = balls.iterator();
     while (ballIter.hasNext()) {
@@ -103,12 +101,11 @@ void draw() {
       if (b.loc.x != 55) { //aka hvis der er blevet skudt
         pushMatrix();
         translate(b.loc.x, b.loc.y);
-        //rotate(b.angle);
+     
         b.addForce(new PVector(0, 0.05));
         b.update();
         b.display();
-        //println(b.angle);
-        //line(0,0,50,-50);
+       
         popMatrix();
       }
       if (b.loc.x > width) {
@@ -136,7 +133,7 @@ void draw() {
         ballIter.remove();
       }
     }
-   // ballIter.remove();
+   
     
     
    
@@ -144,7 +141,7 @@ void draw() {
   imageMode(CENTER);
   textSize(30);
   heart.display();
-  //image(heart, 25, 25, 25+3*sin(millis()*0.01), 25+3*sin(millis()*0.01));
+  
   fill(0);
   text(life, 40, 35);
   imageMode(CORNER);
@@ -154,7 +151,7 @@ void draw() {
     if (life <= 0) { //død
       background(255);
       textSize(100);
-      text("GAME OVER", 120, height/2+20);
+      text("Spil slut", 120, height/2+20);
       textSize(30);
       text("Score: "+streak, 130, height/2+70);
       if (streak > int(highscore[0])) {
@@ -249,7 +246,7 @@ void draw() {
   
 
   if (menu != 0 && menu != 5) { // backbutton
-    //println(mouseX,mouseY);
+   
     back.hover();
     back.display(20);
   }
@@ -265,9 +262,9 @@ void drawCannon() {
   popMatrix();
 }
 
-void mouseClicked() { // aka kode kluddermor
+void mouseClicked() {
 
-  if (menu != 5) {
+  if (menu != 5) { // altså, hvis spillet ikke er i gang
 
     
     hov = "";
@@ -310,6 +307,10 @@ void mouseClicked() { // aka kode kluddermor
       sletknapper();
       initMenu();
       //println(knapper.size());
+    }
+    else if (hov.equals("Slut spil"))
+    {
+      exit();
     }
    }
    if (menu == 1) ///////////////////////////////////////////////////////////////////////////////////////
@@ -469,7 +470,7 @@ void initMenu(){
   knapper.add(new Knap(-250, 0, 400, 100, "Start"));
   knapper.add(new Knap(-250, 150, 400, 100, "Vælg spørgsmål"));
   knapper.add(new Knap(250, 0, 400, 100, "Vis eksempler"));
-  knapper.add(new Knap(250, 150, 400, 100, "Placeholder"));
+  knapper.add(new Knap(250, 150, 400, 100, "Slut spil"));
   }
   else if (menu == 2)
   {
