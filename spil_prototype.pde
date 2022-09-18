@@ -56,6 +56,7 @@ void setup() {
   heart.Looping = true;
   heart.Location = new PVector(25,25);
   heart.playAnimation(12,17);
+  
 //boks aka 3x ballon + spørgsmål
   boxes.add(new Box());
   balls.add(new Ball());
@@ -78,17 +79,17 @@ void setup() {
   pop = new SoundFile(this, "pop.mp3");
 
 
-  initMenu();
+  initMenu(); // laver startmenuen
   mur = loadImage("mur.png");
   baggrund = loadImage("baggrund.png");
 
-  back = new Knap(70, 30, 100, 25, "tilbage");
+  back = new Knap(70, 30, 100, 25, "tilbage"); // tilbageknap
 }
 
 void draw() {
   background(255);
 
-  if (menu == 5) {
+  if (menu == 5) { // når spillet er startet
     imageMode(CORNERS);
     tint(255, 110);
     image(baggrund,0,0,width,height);
@@ -101,13 +102,13 @@ void draw() {
     image(mur, 160, 0, 205, height);
 
 
-    front = boxes.get(0);
+    front = boxes.get(0); // den foreste
     textSize(40);
     fill(0);
     front.front = true;
     text(front.question[0], 10, 470);
     Iterator<Box> iter = boxes.iterator();
-    while (iter.hasNext()) {
+    while (iter.hasNext()) { // rykker alle balloner
       
       Box bs = iter.next();
       bs.mover();
@@ -120,7 +121,7 @@ void draw() {
 
   
 
-    Iterator<Ball> ballIter = balls.iterator();
+    Iterator<Ball> ballIter = balls.iterator(); // rykker alle skud
     while (ballIter.hasNext()) {
       Ball b = ballIter.next();
       if (b.loc.x != 55) { //aka hvis der er blevet skudt
@@ -133,9 +134,9 @@ void draw() {
        
         popMatrix();
       }
-      if (b.loc.x > width) {
+      if (b.loc.x > width) { // fjern hvis uden for skærm
         ballIter.remove();
-      } else if (front.hit(b.loc.x, b.loc.y)) {
+      } else if (front.hit(b.loc.x, b.loc.y)) { // hvis den rammer de forreste balloner
         pop.play();
         if (front.guessedCorrect == false) {
           life -= 10;
@@ -146,16 +147,16 @@ void draw() {
 
         if (boxes.size() == 0) {
           boxes.add(new Box());
-          println(boxes.size());
+          
           
           Box bs = boxes.get(0);
       if (!bs.made) {
         bs.maker(regne);
       }
           
-          wave = millis();
+          wave = millis(); // nulstiller den nye "wave" af balloner
         }
-        ballIter.remove();
+        ballIter.remove(); // fjerner skudet
       }
     }
    
@@ -190,19 +191,19 @@ void draw() {
       noLoop();
     }
 
-    if (front.ohno() && millis()-lifeTime > 100) {
+    if (front.ohno() && millis()-lifeTime > 100) { // taber liv når balloner rør mur
       life--;
       lifeTime = millis();
     }
 
-    if (millis() - wave >= 4500-streak*40) {
+    if (millis() - wave >= 4500-streak*40) { // laver nye balloner. Gøres hurtigere jo flere balloner du har skudt.
       boxes.add(new Box());
       wave = millis();
     }
     
   
   } 
-  else if (menu == 0) { //menu
+  else if (menu == 0) { // Main menu
     background(255);
     rectMode(CENTER);
     textAlign(CENTER);
@@ -223,7 +224,7 @@ void draw() {
     popMatrix();
   }
 
-  else if (menu == 1) {
+  else if (menu == 1) { // eksempel menu
     pushMatrix();
     translate(width/2, height/2);
     
@@ -249,7 +250,7 @@ void draw() {
     popMatrix();
   }
   
-  else if (menu == 2) {
+  else if (menu == 2) { // slå matematik spørgsmålene til eller fra
     pushMatrix();
     translate(width/2, height/2);
     textAlign(CENTER);
@@ -284,17 +285,29 @@ void drawCannon() {
   translate(70, height/2);
   rotate(angle);
   gun.display();
-  //image(gun, 0, 0, -50, 50);
+  
   popMatrix();
 }
 
 void mouseClicked() {
 
-  if (menu != 5) { // altså, hvis spillet ikke er i gang
+  if (menu == 5) { // Inde i spillet, så når man skyder
+    balls.add(new Ball());
+    Ball b = balls.get(balls.size()-1);
+    PVector direction = new PVector(mouseX-55, (mouseY-height/2));
+    gun.playAnimation(0,4);
+    direction.mult(0.05);
 
-    
+    b.addForce(direction);
+
+
+
+    b.loc.x = 56;
+  }
+  
+  if (menu != 5) { // altså, hvis spillet ikke er i gang
     hov = "";
-    for (Knap kn : knapper) {
+    for (Knap kn : knapper) { //tjekker hvilken knap musen er over
       if (kn.hovering)
       {
         hov = kn.txt;
@@ -304,8 +317,8 @@ void mouseClicked() {
       {
         hov = back.txt;
       }
-      println(hov);
-    if (menu == 0) ////////////////////////////////////////////////////////////////////////////////////////7
+      
+    if (menu == 0) //////////////////////////////////////////////////////////////////////////////////////// Main menu
    {
      back.hover();
      back.hovering = false;
@@ -325,7 +338,7 @@ void mouseClicked() {
       menu = 1;
       sletknapper();
       initMenu();
-      //println(knapper.size());
+      
     }
     else if (hov.equals("Vælg spørgsmål"))
     {
@@ -339,7 +352,7 @@ void mouseClicked() {
       exit();
     }
    }
-   if (menu == 1) ///////////////////////////////////////////////////////////////////////////////////////
+   if (menu == 1) /////////////////////////////////////////////////////////////////////////////////////// eksempler
    {
     
     
@@ -376,7 +389,7 @@ void mouseClicked() {
    
   } //
 
-if (menu == 2) ///////////////////////////////////////////////////////////////////////////////////////
+if (menu == 2) /////////////////////////////////////////////////////////////////////////////////////// Slå til eller fra
    {
   
      if (hov.equals("tilbage"))
@@ -469,28 +482,16 @@ if (menu == 2) /////////////////////////////////////////////////////////////////
         
       }
    }
- println(regne);
-  } //
+ 
+  } 
 
-  } //hvis menu != 5
-
-
-  if (menu == 5) { // skyde
-    balls.add(new Ball());
-    Ball b = balls.get(balls.size()-1);
-    PVector direction = new PVector(mouseX-55, (mouseY-height/2));
-    gun.playAnimation(0,4);
-    direction.mult(0.05);
-
-    b.addForce(direction);
+  } ///
 
 
-
-    b.loc.x = 56;
-  }
+  
 }
 
-void initMenu(){
+void initMenu(){ // kaver knapper
   if (menu == 0)
   {
   knapper.add(new Knap(-250, 0, 400, 100, "Start"));
@@ -524,7 +525,7 @@ void initMenu(){
 
 
 
-void sletknapper(){
+void sletknapper(){ //sletter knapper
  for (int i = knapper.size(); knapper.size() > 0; i--){
  knapper.remove(i-1);
  }

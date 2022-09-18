@@ -7,7 +7,7 @@ class QA
   
   String[] newQuestion(ArrayList<Integer> valgte){
    
-    if (valgte.size() == 0){
+    if (valgte.size() == 0){ //hvis der ikke er foretaget et valg, så indgår alle fire kategorier i spørgsmålene.
    valgte.add(1);
    valgte.add(2);
    valgte.add(3);
@@ -72,13 +72,13 @@ class QA
    }
  
    String[] s = new String[5];
-    s[0] = str(tal1) + type + str(tal2); // question
+    s[0] = str(tal1) + type + str(tal2); // spørgsmål
     s[1] = str(svar+t1);
     s[2] = str(svar+t2);
     s[3] = str(svar);
     s[4] = str(svar); //correct answer
     
-    //print(spørgsmål);
+    
     return s;
    
   }

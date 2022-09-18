@@ -8,19 +8,18 @@ class Box {
   boolean guessedCorrect;
   
   Box() {
-    //question = quest.newQuestion();
-    made = false;
+    made = false; // den har ikke lavet ballonerne
   }
 
   void maker(ArrayList<Integer> valgte) {
-    question = quest.newQuestion(valgte);
+    question = quest.newQuestion(valgte); // generer et spørgsmål
     boolean diff = false;
-    int[] hs = new int[3];
+    int[] hs = new int[3]; // vælger 3 tilfældige højder til ballonerne
     hs[0] = (int) random(25, height-25);
     hs[1] = (int) random(25, height-25);
     hs[2] = (int) random(25, height-25);
-    //Iterator iter = hs.iterator();
-    while (!diff) {
+    
+    while (!diff) { // sørger for at ballonerne ikke spawner inden i hinanden.
       diff = true;
       if (abs(hs[0] - hs[1]) < 70 || abs(hs[0] - hs[2]) < 70 ) { //check 1
         hs[0] = (int) random(25, height-25);
@@ -38,12 +37,12 @@ class Box {
     made = true;
   }
 
-  void mover() {
+  void mover() { // flytter ballonerne
     for (Baloon bs : baloons) {
       bs.update();
       bs.display();
 
-      if (front) {
+      if (front) { // viser kun tekst på de foreste balloner
         bs.displayText();
       }
     }
@@ -56,14 +55,14 @@ class Box {
   }
   }
 
-  boolean ohno() { //lifeloss
+  boolean ohno() { // tab af liv, når ballonerne rør muren
   if (baloons.size() != 0){
     return (baloons.get(0).loc.x <= 225);
   }
   return false;
   }
 
-  boolean hit(float x, float y) {
+  boolean hit(float x, float y) { // om ballonerne er blevet skudt.
     for (Baloon bs : baloons) {
       if (abs(x- bs.loc.x) < 30 && abs(y- bs.loc.y) < 30) {
         if (bs.value.equals(question[4]))
