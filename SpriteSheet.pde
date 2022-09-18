@@ -72,8 +72,7 @@ class SpriteSheet{
           LoopReachTime = millis();
           
         }
-        //int pause = int(LoopPause * 1000);
-        //delay(pause);
+        
         
 
         

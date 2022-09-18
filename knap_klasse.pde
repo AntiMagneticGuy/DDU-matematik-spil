@@ -19,7 +19,7 @@ class Knap {
     hovering = false;
   }
 
-  void display() {
+  void display() { // viser knappen
     pushMatrix();
     fill(col);
     rectMode(CENTER);
@@ -33,7 +33,7 @@ class Knap {
     popMatrix();
   }
   
-  void display(int b) {
+  void display(int b) { // kun tilegnet tilbage-knappen. Viser teksten på knappen i en bestemt størreste.
     pushMatrix();
     fill(col);
     rectMode(CENTER);
@@ -51,27 +51,26 @@ class Knap {
     col = color(col1,col2,col3);
   }
 
-void hover(){
+void hover(){ // hvad der foregår når musen er over knappen.
   
   if (txt.equals("tilbage") && mouseX >= 20 && mouseX <= 120 && mouseY >= 5 && mouseY <= 45)
   {
-    updateColor(200,70,70);
+    updateColor(200,70,70); // rød
     hovering = true;
     
   }
   else if (txt != "tilbage" && mouseX >= (width/2+loc.x)-sizeX/2 && mouseX <= (width/2+loc.x)+sizeX/2 && mouseY >= (height/2+loc.y)-sizeY/2 && mouseY <= (height/2+loc.y)+sizeY/2){
-    updateColor(200,70,70);
-    
+    updateColor(200,70,70); //rød
     hovering = true;
 }
 else{
   hovering = false;
-  updateColor(200,200,200);
+  updateColor(200,200,200); // grå
   
 }
 if (on == true )
   {
-    updateColor(70,200,70);
+    updateColor(70,200,70); // gør den grøn
     
 }
 

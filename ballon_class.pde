@@ -2,8 +2,8 @@ import java.util.Iterator;
 class Baloon{
   PVector loc;
   float sinOff;
-  String value; // answer
-  float orgY; //original y-værdi
+  String value; // det der står på ballonen
+  float orgY; //original y-værdi, bruges til at få ballonen til at svæve op og ned.
   float modifier;
   SpriteSheet BallonSprite;
   PFont boldFont;
@@ -28,7 +28,7 @@ class Baloon{
     BallonSprite.AnimFrameCap = 8;
   }
   
-  void update(){
+  void update(){ // opdater lokation
     if (loc.x >= 225){
       
     modifier = streak*0.05;
@@ -42,18 +42,15 @@ class Baloon{
   }
   
   
-  void display(){
+  void display(){ // vis ballonen
     pushMatrix();
     translate(loc.x - 27,loc.y - 68);
-    //fill(255,0,0);
-    //ellipse(0,0,50,50);
     BallonSprite.display();
-    //line(0,25,0,50);
     popMatrix();
 
   }
   
- void displayText(){
+ void displayText(){ // vis teksten på ballonen
     pushMatrix();
     textAlign(CENTER);
     translate(loc.x,loc.y);
