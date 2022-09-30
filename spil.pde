@@ -1,5 +1,7 @@
 import java.util.Iterator;
 import processing.sound.*; // kræver at librariet 'Sound' er installeret
+import de.bezier.data.sql.*;
+SQLite db;
 
 SpriteSheet gun;
 SpriteSheet heart;
@@ -16,7 +18,7 @@ int lifeTime;
 int wave;
 int streak;
 int menu;
-String[] highscore;
+//String[] highscore;
 SoundFile musik;
 SoundFile pop;
 Knap back;
@@ -25,6 +27,8 @@ ArrayList<Integer> regne = new ArrayList<Integer>();
 String hov;
 PImage mur;
 PImage baggrund;
+String high_navn;
+int highscore;
 
 void setup() {
   size(1000, 500);
@@ -69,7 +73,7 @@ void setup() {
   wave = millis();
   streak = 0;
   menu = 0;
-  highscore = loadStrings("highscore.txt");
+  //highscore = loadStrings("highscore.txt");
 
   //musik og lydeffekt
   musik = new SoundFile(this, "war.mp3");
@@ -84,6 +88,20 @@ void setup() {
   baggrund = loadImage("baggrund.png");
 
   back = new Knap(70, 30, 100, 25, "tilbage"); // tilbageknap
+  
+  
+   db = new SQLite( this, "Highscores.sqlite" );
+    if ( !db.connect() )
+    {
+      println("Guh!");
+    }
+    else
+    {
+      db.query("SELECT user, highscore FROM personer ORDER BY highscore DESC LIMIT 0,1;");
+      high_navn = db.getString("user");
+      highscore = db.getInt("highscore");
+      //println("Highscore: "+highscore);
+    }
 }
 
 void draw() {
@@ -180,13 +198,13 @@ void draw() {
       text("Spil slut", 120, height/2+20);
       textSize(30);
       text("Score: "+streak, 130, height/2+70);
-      if (streak > int(highscore[0])) {
-        text("Tidligere bedste score: "+highscore[0], 130, height/2+140);
-        String[] high = new String[1];
-        high[0] = str(streak);
-        saveStrings("highscore.txt", high);
+      if (streak > highscore) {
+        text("Tidligere bedste score: "+str(highscore)+" af "+high_navn, 130, height/2+140);
+        db.execute("INSERT INTO personer (user, highscore) VALUES ('PICKEL RIIIICK!!',"+streak+");");
+        
       } else {
-        text("Bedste score: "+int(highscore[0]), 130, height/2+140);
+        text("Bedste score: "+str(highscore)+" af "+high_navn, 130, height/2+140);
+        db.execute("INSERT INTO personer (user, highscore) VALUES ('PICKEL RIIIICK!!',"+streak+");");
       }
       noLoop();
     }
@@ -268,7 +286,26 @@ void draw() {
     popMatrix();
   }
   
-  
+  else if (menu == 3) { // slå matematik spørgsmålene til eller fra
+    pushMatrix();
+    //translate(width/2, height/2);
+    textAlign(CENTER);
+     textSize(60); //title
+    fill(150, 20, 20);
+    text("Highscores", width/2, 140);
+    textSize(25);
+    fill(0);
+    
+    db.query("SELECT user, highscore FROM personer ORDER BY highscore DESC LIMIT 0,5;");
+    int iy = 200;
+    while (db.next())
+      {
+        text("Navn: " + db.getString("user")+" \t, Score: " + db.getInt("highscore"),width/2,iy);
+        iy+=40;
+      }
+    
+    popMatrix();
+  }
   
 
   if (menu != 0 && menu != 5) { // backbutton
@@ -349,7 +386,9 @@ void mouseClicked() {
     }
     else if (hov.equals("afslut"))
     {
-      exit();
+      menu = 3;
+      sletknapper();
+      initMenu();
     }
    }
    if (menu == 1) /////////////////////////////////////////////////////////////////////////////////////// eksempler
@@ -484,7 +523,15 @@ if (menu == 2) /////////////////////////////////////////////////////////////////
    }
  
   } 
-
+else if (menu == 3)
+{
+  if (hov.equals("tilbage"))
+    {
+      menu = 0;
+      sletknapper();
+      initMenu();
+}
+}
   } ///
 
 
@@ -521,8 +568,11 @@ void initMenu(){ // kaver knapper
   knapper.add(new Knap(250, 0, 400, 100, "Gange (×)"));
   knapper.add(new Knap(250, 150, 400, 100, "Dividere (÷)"));
   }
+else if (menu == 3)
+  {
+    println("Fetching highscores...");
+  }
 }
-
 
 
 void sletknapper(){ //sletter knapper
