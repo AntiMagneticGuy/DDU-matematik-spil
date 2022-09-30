@@ -54,10 +54,15 @@ class Knap {
 void hover(){ // hvad der foregår når musen er over knappen.
   
   if (txt.equals("tilbage") && mouseX >= 20 && mouseX <= 120 && mouseY >= 5 && mouseY <= 45)
-  {
+  { 
     updateColor(200,70,70); // rød
     hovering = true;
     
+  }
+  else if (txt.equals("login") && mouseX >= width-120 && mouseX <= width-20 && mouseY >= 5 && mouseY <= 45)
+  { 
+    updateColor(200,70,70); // rød
+    hovering = true;
   }
   else if (txt != "tilbage" && mouseX >= (width/2+loc.x)-sizeX/2 && mouseX <= (width/2+loc.x)+sizeX/2 && mouseY >= (height/2+loc.y)-sizeY/2 && mouseY <= (height/2+loc.y)+sizeY/2){
     updateColor(200,70,70); //rød
