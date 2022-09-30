@@ -22,6 +22,7 @@ int menu;
 SoundFile musik;
 SoundFile pop;
 Knap back;
+Knap login;
 PImage fork;
 ArrayList<Integer> regne = new ArrayList<Integer>();
 String hov;
@@ -29,9 +30,11 @@ PImage mur;
 PImage baggrund;
 String high_navn;
 int highscore;
+String pname;
 
 void setup() {
   size(1000, 500);
+  pname= "Gæst";
 
   noSmooth();
   platform = loadImage("platform.png");
@@ -88,7 +91,7 @@ void setup() {
   baggrund = loadImage("baggrund.png");
 
   back = new Knap(70, 30, 100, 25, "tilbage"); // tilbageknap
-  
+  login = new Knap(width-70, 30, 100, 25, "Login"); // tilbageknap
   
    db = new SQLite( this, "Highscores.sqlite" );
     if ( !db.connect() )
@@ -240,6 +243,9 @@ void draw() {
     }
     textAlign(LEFT);
     popMatrix();
+    
+    login.hover();
+    login.display(20);
   }
 
   else if (menu == 1) { // eksempel menu
@@ -307,6 +313,22 @@ void draw() {
     popMatrix();
   }
   
+  else if (menu == 4) { // slå matematik spørgsmålene til eller fra
+    pushMatrix();
+    //translate(width/2, height/2);
+    textAlign(CENTER);
+     textSize(60); //title
+    fill(150, 20, 20);
+    text("Dit Navn:" + pname, width/2, 140);
+    textSize(25);
+    
+    
+    
+    fill(0);
+   
+   
+    popMatrix();
+  }
 
   if (menu != 0 && menu != 5) { // backbutton
    
@@ -314,6 +336,7 @@ void draw() {
     back.display(20);
   }
 }
+
 
 
 void drawCannon() {
@@ -354,7 +377,10 @@ void mouseClicked() {
       {
         hov = back.txt;
       }
-      
+      else if (login.hovering && menu == 0)
+      {
+        hov = login.txt;
+      }
     if (menu == 0) //////////////////////////////////////////////////////////////////////////////////////// Main menu
    {
      back.hover();
@@ -384,9 +410,15 @@ void mouseClicked() {
       initMenu();
       //println(knapper.size());
     }
-    else if (hov.equals("afslut"))
+    else if (hov.equals("Se highscores"))
     {
       menu = 3;
+      sletknapper();
+      initMenu();
+    }
+    else if (hov.equals("Login"))
+    {
+      menu = 4;
       sletknapper();
       initMenu();
     }
@@ -532,6 +564,16 @@ else if (menu == 3)
       initMenu();
 }
 }
+else if (menu == 4)
+{
+  if (hov.equals("tilbage"))
+    {
+      menu = 0;
+      sletknapper();
+      initMenu();
+}
+}
+
   } ///
 
 
@@ -544,7 +586,7 @@ void initMenu(){ // kaver knapper
   knapper.add(new Knap(-250, 0, 400, 100, "Start"));
   knapper.add(new Knap(-250, 150, 400, 100, "Vælg spørgsmål"));
   knapper.add(new Knap(250, 0, 400, 100, "Vis eksempler"));
-  knapper.add(new Knap(250, 150, 400, 100, "afslut"));
+  knapper.add(new Knap(250, 150, 400, 100, "Se highscores"));
   }
   else if (menu == 2)
   {
@@ -571,6 +613,10 @@ void initMenu(){ // kaver knapper
 else if (menu == 3)
   {
     println("Fetching highscores...");
+  }
+  else if (menu == 4)
+  {
+    knapper.add(new Knap(0, 0, 400, 100, ""));
   }
 }
 
