@@ -32,11 +32,16 @@ PImage baggrund;
 String high_navn;
 int highscore;
 String pname;
+boolean search;
+boolean nameExists;
 
 void setup() {
   size(1000, 500);
   pname= "Gæst";
+  nameExists = false;
+  
   tmptext = "";
+  search = false;
 
   noSmooth();
   platform = loadImage("platform.png");
@@ -104,7 +109,7 @@ void setup() {
     db.query("SELECT user, highscore FROM personer ORDER BY highscore DESC LIMIT 0,1;");
     high_navn = db.getString("user");
     highscore = db.getInt("highscore");
-    //println("Highscore: "+highscore);
+    
   }
 }
 
@@ -203,16 +208,17 @@ void draw() {
       text("Score: "+streak, 130, height/2+70);
       if (streak > highscore) {
         text("Tidligere bedste score: "+str(highscore)+" af "+high_navn, 130, height/2+140);
-        if (pname !="Gæst")
-        {
-        db.execute("INSERT INTO personer (user, highscore) VALUES ('"+pname+"',"+streak+");");
-        }
+        
       } else {
         text("Bedste score: "+str(highscore)+" af "+high_navn, 130, height/2+140);
-        if (pname !="Gæst" && streak >0)
+      }
+        if (pname !="Gæst" && streak >0 && !nameExists)
         {
         db.execute("INSERT INTO personer (user, highscore) VALUES ('"+pname+"',"+streak+");");
-        }
+        } else if (pname !="Gæst" && streak >0 && nameExists)
+        {
+          db.execute("UPDATE personer set highscore = "+streak+" where user = '"+pname+"' AND (SELECT highscore FROM personer where user = '"+pname+"') < "+streak+";");
+          println("updated");
       }
       noLoop();
     }
@@ -336,9 +342,17 @@ void draw() {
       textAlign(CENTER);
     text("Skriv navn",width/2, height/2+125);
     
-    textAlign(LEFT);
+    
     }
-    //pname = tmptext;
+    db.query("select exists(select 1 from personer where user = '"+tmptext+"');");
+    
+    if (db.getInt("exists(select 1 from personer where user = '"+tmptext+"')") == 1)
+    {
+      textSize(20);
+      textAlign(CENTER);
+      text("Navn eksisterer i database. Eksisterende highscore vil blive opdateret.", width/2, 210);
+    }
+    textAlign(LEFT);
     popMatrix();
   }
 
@@ -433,9 +447,6 @@ void mouseClicked() {
     }
     if (menu == 1) /////////////////////////////////////////////////////////////////////////////////////// eksempler
     {
-
-
-
       if (hov.equals("tilbage"))
       {
         menu = 0;
@@ -559,7 +570,7 @@ void mouseClicked() {
   } ///
 }
 
-void initMenu() { // kaver knapper
+void initMenu() { // laver knapper
   if (menu == 0)
   {
     knapper.add(new Knap(-250, 0, 400, 100, "Start"));
@@ -586,10 +597,10 @@ void initMenu() { // kaver knapper
     knapper.add(new Knap(-250, 150, 400, 100, "Minus (-)"));
     knapper.add(new Knap(250, 0, 400, 100, "Gange (×)"));
     knapper.add(new Knap(250, 150, 400, 100, "Dividere (÷)"));
-  } else if (menu == 3)
+  } else if (menu == 3) //highscore
   {
-    println("Fetching highscores...");
-  } else if (menu == 4)
+    String searchTerm = "";
+  } else if (menu == 4) //login
   {
     knapper.add(new Knap(width/2, height/2+120, 400, 100, ""));
   }
@@ -603,9 +614,14 @@ void sletknapper() { //sletter knapper
 }
 
 void keyReleased() {
+  if (!search)
+  {
   if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || str(key).equals(" "))
   {
-    tmptext += str(key);//.toLowerCase();
+    if (tmptext.length() < 25)
+    {
+    tmptext += str(key);
+    }
     
   } else if (key == BACKSPACE)
   {
@@ -618,10 +634,28 @@ void keyReleased() {
     if (tmptext != "")
     {
     pname = tmptext;
+    
+    db.query("select exists(select 1 from personer where user = '"+pname+"');");
+    if (db.getInt("exists(select 1 from personer where user = '"+pname+"')") == 1)
+    {
+      nameExists = true;
+    }
+    else
+    {
+     nameExists = false; 
+    }
+    
     }
     else
     {
       pname = "Gæst";
     }
   }
+}
+  else
+  {
+    
+  }
+  
+  
 }
