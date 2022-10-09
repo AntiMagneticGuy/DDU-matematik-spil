@@ -36,10 +36,10 @@ String pname;
 boolean search;
 boolean nameExists;
 String searchTerm;
-//mtsql
+//mysql
 String DB_URL = "hc.hyperservers.dk:3306";
 String user = "u1_UuV4WCkMbn";
-String pass = "O8N=7PpTCi1KaE0Z+k@mgVea";
+String pass = "O8N=7PpTCi1KaE0Z+k@mgVea"; // shhhh
 
 
 void setup() {
