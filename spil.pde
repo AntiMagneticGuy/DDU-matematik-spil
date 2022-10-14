@@ -36,6 +36,7 @@ String pname;
 boolean search;
 boolean nameExists;
 String searchTerm;
+int per_best;
 //mysql
 String DB_URL = "hc.hyperservers.dk:3306";
 String user = "u1_UuV4WCkMbn";
@@ -222,6 +223,7 @@ void draw() {
       } else {
         text("Bedste score: "+str(highscore)+" af "+high_navn, 130, height/2+140);
       }
+      
         if (pname !="Gæst" && streak >0 && !nameExists)
         {
         db.execute("INSERT INTO personer (user, highscore) VALUES ('"+pname+"',"+streak+");");
@@ -229,6 +231,7 @@ void draw() {
         {
           db.execute("UPDATE personer set highscore = "+streak+" where UPPER(user) = UPPER('"+pname+"') AND (SELECT highscore FROM personer where UPPER(user) = UPPER('"+pname+"')) < "+streak+";");
           println("updated highscore");
+          text("Personlig bedste score: "+per_best, 130, height/2+105);
       }
       noLoop();
     }
@@ -675,12 +678,23 @@ void keyReleased() {
     if (db.getInt("exists(select 1 from personer where UPPER(user) = UPPER('"+pname+"'))") == 1)
     {
       nameExists = true;
+      
+      
     }
     else
     {
      nameExists = false; 
+      per_best = 0;
     }
             }
+    if (nameExists == true)
+    {
+      db.query("select highscore from personer where UPPER(user) = UPPER('"+pname+"');");
+      while (db.next())
+      {
+        per_best = db.getInt("highscore");
+      }
+    }
     }
     else
     {
